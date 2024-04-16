@@ -14,8 +14,8 @@ class TestController extends Controller
 
         // クエリビルダ
         $queryBuilder = DB::table('tests')->where('text', '=', 'bbb')
-        ->select('id', 'text')
-        ->get();
+            ->select('id', 'text')
+            ->get();
 
         dd($values, $queryBuilder);
 

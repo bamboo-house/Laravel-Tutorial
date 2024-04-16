@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TestController;
+use App\Http\Controllers\ContactFormController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,18 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('tests/test', [TestController::class, 'index']);
+
+Route::get('contacts', [ContactFormController::class, 'index'])->name('contacts.index');
+
+Route::prefix('contacts')
+    ->middleware(['auth'])
+    ->controller(ContactFormController::class)
+    ->name('contacts.')
+    ->group(function () {
+        Route::get('/', 'index')->name('index');
+    });
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,4 +42,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
